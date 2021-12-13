@@ -37,14 +37,24 @@ namespace SeleniumScraper {
             ChromeOptions chOptions = new ChromeOptions();
 
 #if debugOptions
-            chOptions.AddArguments("--disable-notifications");
+            chOptions.AddArgument("--disable-notifications");
 #else
-            chOptions.AddArguments("--headless --disable-notifications");
+            chOptions.AddArguments("--headless --disable-notifications --silent");
+            chOptions.AddArgument("headless");
+            chOptions.AddArgument("--disable-notifications");
+            chOptions.AddArgument("--silent");
+            chOptions.AddArgument("--log-level=3");
 #endif
-            IWebDriver driver = new ChromeDriver(Directory.GetCurrentDirectory(), chOptions);
+            var chromeDriverService = ChromeDriverService.CreateDefaultService(Directory.GetCurrentDirectory());
+            chromeDriverService.HideCommandPromptWindow = true;
+            chromeDriverService.SuppressInitialDiagnosticInformation = true;
+            IWebDriver driver = new ChromeDriver(chromeDriverService, chOptions);
+
 
             // Program will continously run unless user exits himself
             while (continueProgram) {
+                noValidResults = false;
+                
                 IntroPage.Print();
                 string userIn = Console.ReadLine().Trim().ToLower();
 
@@ -331,6 +341,7 @@ namespace SeleniumScraper {
                             } else {
                                 // By setting valid answer to true, data saving will be skippeds
                                 validAnswer = true;
+                                Console.Clear();
                             }
 #endif
 
@@ -360,6 +371,12 @@ namespace SeleniumScraper {
                                     }
 
                                     validAnswer = true;
+
+                                    Console.WriteLine();
+                                    Console.WriteLine("Press any key to continue!");
+                                    Console.ReadKey();
+                                    Console.Clear();
+
                                 } else {
                                     // Invalid input
                                     Console.WriteLine("");
