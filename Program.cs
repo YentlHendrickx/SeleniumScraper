@@ -1,7 +1,7 @@
 ﻿// Debug modee logs options and disables creation of CSV file)
-#define debug
+//#define debug
 // Debug options, if enabled will disable the headless mode (for inspecting the web page)
-#define debugOptions
+//#define debugOptions
 
 using System;
 using System.Collections.Generic;
@@ -43,7 +43,7 @@ namespace SeleniumScraper {
 #endif
             IWebDriver driver = new ChromeDriver(Directory.GetCurrentDirectory(), chOptions);
 
-           // Program will continously run unless user exits himself
+            // Program will continously run unless user exits himself
             while (continueProgram) {
                 IntroPage.Print();
                 string userIn = Console.ReadLine().Trim().ToLower();
@@ -79,9 +79,12 @@ namespace SeleniumScraper {
                             // Format
                             string outputString = "\n----------\n";
 
-#region Scraping
-#region YouTube
+                            #region Scraping
+                            #region YouTube
+
                             if (options[userIn] == "YouTube") {
+                                // For checking the amount of valid results
+                                int youtubeResults = 0;
                                 // Loop over first 5 vids
                                 for (int i = 1; i < 6; i++) {
                                     try {
@@ -107,23 +110,32 @@ namespace SeleniumScraper {
                                         outputString += "\n----------\n";
 
                                         // Append data for CSV saving
-                                        svcBuilder.Append(videotitle);
+                                        svcBuilder.Append("\"" + videotitle + "\"");
                                         svcBuilder.Append(";");
-                                        svcBuilder.Append(vidViews);
+                                        svcBuilder.Append("\"" + vidViews + "\"");
                                         svcBuilder.Append(";");
-                                        svcBuilder.Append(vidChannel);
+                                        svcBuilder.Append("\"" + vidChannel + "\"");
                                         svcBuilder.Append(";");
-                                        svcBuilder.Append(hrefUrl);
+                                        svcBuilder.Append("\"" + hrefUrl + "\"");
                                         svcBuilder.Append("\n");
+
+                                        youtubeResults++;
                                     } catch {
+#if !debug
+                                        Console.WriteLine("Error while fething from YouTube!");
+#endif
+                                    }
+
+                                    if (youtubeResults == 0) {
                                         outputString = "No results found for " + options[userIn] + " scrape with option: " + searchTermIn;
                                         noValidResults = true;
                                     }
-                                    
                                 }
+
                                 #endregion
                                 #region Indeed
                             } else if (options[userIn] == "Indeed") {
+                                int indeedResults = 0;
                                 for (int i = 1; i < 16; i++) {
                                     // Scrape from indeed site
 
@@ -146,23 +158,30 @@ namespace SeleniumScraper {
                                         outputString += "\n----------\n";
 
                                         // Append data for CSV saving
-                                        svcBuilder.Append(title);
+                                        svcBuilder.Append("\"" + title + "\"");
                                         svcBuilder.Append(";");
-                                        svcBuilder.Append(companyName);
+                                        svcBuilder.Append("\"" + companyName + "\"");
                                         svcBuilder.Append(";");
-                                        svcBuilder.Append(location);
+                                        svcBuilder.Append("\"" + location + "\"");
                                         svcBuilder.Append(";");
-                                        svcBuilder.Append(url);
+                                        svcBuilder.Append("\"" + url + "\"");
                                         svcBuilder.Append("\n");
+
+                                        indeedResults++;
                                     } catch {
-                                        // Error, no results found
+#if debug
+                                        Console.WriteLine("Error while fetching from Indeed!");
+#endif
+                                    }
+
+                                    if (indeedResults == 0) {
                                         outputString = "No results found for " + options[userIn] + " scrape with option: " + searchTermIn;
                                         noValidResults = true;
                                     }
-                                   
                                 }
-#endregion
-#region Reddit
+
+                                #endregion
+                                #region Reddit
                             } else if (options[userIn] == "Reddit") {
                                 int resultCount = 0;
                                 int i = 1;
@@ -237,13 +256,13 @@ namespace SeleniumScraper {
                                                 try {
                                                     titleFind = "//*[@id=\"" + id + "\"]/div[2]/article/div[1]/div[2]/div[2]/a/div/h3";
                                                     titleResult = driver.FindElement(By.XPath(titleFind)).Text;
-                                                   
+
                                                     //Console.WriteLine("Second Post structure");
                                                 } catch {
                                                     try {
                                                         titleFind = "//*[@id=\"" + id + "\"]/div[3]/div[2]/div[1]/a/div/h3";
                                                         titleResult = driver.FindElement(By.XPath(titleFind)).Text;
-                                                       
+
                                                         //Console.WriteLine("Third Post structure");
                                                     } catch {
                                                         // Invalid Title
@@ -258,13 +277,13 @@ namespace SeleniumScraper {
                                                 outputString += "\n----------\n";
 
                                                 // Append data for CSV saving
-                                                svcBuilder.Append(titleResult);
+                                                svcBuilder.Append("\"" + titleResult + "\"");
                                                 svcBuilder.Append(";");
-                                                svcBuilder.Append(upvoteResult);
+                                                svcBuilder.Append("\"" + upvoteResult + "\"");
                                                 svcBuilder.Append(";");
-                                                svcBuilder.Append(dateResult);
+                                                svcBuilder.Append("\"" + dateResult + "\"");
                                                 svcBuilder.Append(";");
-                                                svcBuilder.Append(urlResult);
+                                                svcBuilder.Append("\"" + urlResult + "\"");
                                                 svcBuilder.Append("\n");
 
                                                 // Got a new valid result
@@ -279,72 +298,86 @@ namespace SeleniumScraper {
                                     }
 
                                     i++;
+
+                                    // No results have been found, must be invalid link
+
                                 }
 
-                                // No results have been found, must be invalid link
                                 if (resultCount == 0) {
                                     outputString = "No results found for " + options[userIn] + " scrape with option: " + searchTermIn;
                                     noValidResults = true;
                                 }
 
-#endregion
-#endregion
+                            }
+                            #endregion
+                            #endregion
 
-                                Console.WriteLine(outputString);
+                            Console.WriteLine(outputString);
 
-                                #region SaveAsSVC
+                            Console.WriteLine("");
+                            Console.WriteLine("Press any key to continue!");
+                            Console.ReadKey();
+                            Console.WriteLine("");
 
-                                bool validAnswer = true;
-#if debug
-                                // Only give users the option to save their data if the data actually has any value
-                                if (!noValidResults) {
-                                    // Give user option to save their data
-                                    Console.Write("Do you want to save this data? y/n: ");
-                                    validAnswer = false;
-                                } else {
-                                    // By setting valid answer to true, data saving will be skippeds
-                                    validAnswer = true;
-                                }
+                            #region SaveAsSVC
+
+                            bool validAnswer = true;
+#if !debug
+                            // Only give users the option to save their data if the data actually has any value
+                            if (!noValidResults) {
+                                // Give user option to save their data
+                                Console.Write("Do you want to save this data? y/n: ");
+                                validAnswer = false;
+                            } else {
+                                // By setting valid answer to true, data saving will be skippeds
+                                validAnswer = true;
+                            }
 #endif
 
-                                while (!validAnswer) {
-                                    string answer = Console.ReadLine().Trim().ToLower();
+                            while (!validAnswer) {
+                                string answer = Console.ReadLine().Trim().ToLower();
 
-                                    if (answer == "n" || answer == "y") {
-                                        if (answer == "y") {
-                                            Console.WriteLine("");
-                                            Console.WriteLine("SAVING...");
-                                            Console.WriteLine("");
+                                if (answer == "n" || answer == "y") {
+                                    if (answer == "y") {
+                                        Console.WriteLine("");
+                                        Console.WriteLine("SAVING...");
+                                        Console.WriteLine("");
 
+                                        try {
                                             // Create and write to SVC file
                                             string date = DateTime.UtcNow.ToString("yyyy-MM-dd HH-mm-ss");
-                                            string path =  Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
+                                            string path = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
                                             path += "\\output\\";
                                             string fileName = date + " " + options[userIn] + " scrape " + searchTermIn + ".csv";
                                             string filePath = path + fileName;
-                                        
-                                            File.WriteAllText(filePath, svcBuilder.ToString());
-                                        }
 
-                                        validAnswer = true;
-                                    } else {
-                                        // Invalid input
-                                        Console.WriteLine("");
-                                        Console.WriteLine("Only 'n' or 'y' are allowed! Please try again.");
-                                        Console.Write("Do you want to save this data? y/n: ");
+                                            File.WriteAllText(filePath, svcBuilder.ToString());
+                                        } catch {
+                                            Console.WriteLine("");
+                                            Console.WriteLine("Error while saving... please try again later.");
+                                            Console.WriteLine("");
+                                        }
                                     }
+
+                                    validAnswer = true;
+                                } else {
+                                    // Invalid input
+                                    Console.WriteLine("");
+                                    Console.WriteLine("Only 'n' or 'y' are allowed! Please try again.");
+                                    Console.Write("Do you want to save this data? y/n: ");
                                 }
-                                #endregion
                             }
+                            #endregion
                         } else {
                             // Invalid input
                             Console.WriteLine("");
                             Console.WriteLine("Please choose a valid option!");
                             Console.WriteLine("");
                         }
+
                     }
                 }
-                }
+            }
             // Close driver and exit
             driver.Close();
             Environment.Exit(0);

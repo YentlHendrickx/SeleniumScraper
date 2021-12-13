@@ -1,2 +1,4 @@
 /bin/Debug/chromedriver.exe
 /bin/Debug/WebDriver.dll
+/bin/Release/chromedriver.exe
+/bin/Release/WebDriver.dll
