@@ -1,9 +1,0 @@
-C:\Users\yentl\source\repos\SeleniumScraper\obj\Debug\SeleniumScraper.csproj.AssemblyReference.cache
-C:\Users\yentl\source\repos\SeleniumScraper\obj\Debug\SeleniumScraper.csproj.CoreCompileInputs.cache
-C:\Users\yentl\source\repos\SeleniumScraper\bin\Debug\SeleniumScraper.exe.config
-C:\Users\yentl\source\repos\SeleniumScraper\bin\Debug\SeleniumScraper.exe
-C:\Users\yentl\source\repos\SeleniumScraper\bin\Debug\SeleniumScraper.pdb
-C:\Users\yentl\source\repos\SeleniumScraper\obj\Debug\SeleniumScraper.exe
-C:\Users\yentl\source\repos\SeleniumScraper\obj\Debug\SeleniumScraper.pdb
-C:\Users\yentl\source\repos\SeleniumScraper\bin\Debug\WebDriver.dll
-C:\Users\yentl\source\repos\SeleniumScraper\obj\Debug\SeleniumScraper.csproj.CopyComplete
