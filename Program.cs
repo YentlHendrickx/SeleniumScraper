@@ -45,7 +45,7 @@ namespace SeleniumScraper {
             chOptions.AddArgument("--silent");
             chOptions.AddArgument("--log-level=3");
 #endif
-            var chromeDriverService = ChromeDriverService.CreateDefaultService(Directory.GetCurrentDirectory());
+            var chromeDriverService = ChromeDriverService.CreateDefaultService("./");
             chromeDriverService.HideCommandPromptWindow = true;
             chromeDriverService.SuppressInitialDiagnosticInformation = true;
             IWebDriver driver = new ChromeDriver(chromeDriverService, chOptions);
