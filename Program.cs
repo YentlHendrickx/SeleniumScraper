@@ -388,7 +388,7 @@ namespace SeleniumScraper {
                         } else {
                             // Invalid input
                             Console.WriteLine("");
-                            Console.WriteLine("Please choose a valid option!");
+                            Console.WriteLine("Please choose a valid option! ");
                             Console.WriteLine("");
                         }
 
