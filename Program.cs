@@ -151,7 +151,8 @@ namespace SeleniumScraper {
                                 #region Indeed
                             } else if (options[userIn] == "Indeed") {
                                 int indeedResults = 0;
-                                for (int i = 1; i < 16; i++) {
+                                int i = 1;
+                                while (indeedResults < 16 && i < 20) {
                                     // Scrape from indeed site
 
                                     try {
@@ -193,6 +194,7 @@ namespace SeleniumScraper {
                                         outputString = "No results found for " + options[userIn] + " scrape with option: " + searchTermIn;
                                         noValidResults = true;
                                     }
+                                    i++;
                                 }
 
                                 #endregion
