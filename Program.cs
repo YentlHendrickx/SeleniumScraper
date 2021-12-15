@@ -164,7 +164,11 @@ namespace SeleniumScraper {
                                         var companyName = driver.FindElement(By.XPath(companyFind)).Text;
 
                                         string locationFind = "//*[@id=\"mosaic-provider-jobcards\"]/a[" + i + "]/div[1]/div/div[1]/div/table[1]/tbody/tr/td/div[2]/pre/div";
-                                        var location = driver.FindElement(By.XPath(locationFind)).Text;
+                                        var location = driver.FindElement(By.XPath(locationFind)).GetAttribute("innerHTML");
+
+                                        if (location.IndexOf('<') != -1) {
+                                            location = location.Substring(0, location.IndexOf('<'));
+                                        }
 
                                         string urlFind = "//*[@id=\"mosaic-provider-jobcards\"]/a[" + i + "]";
                                         var url = driver.FindElement(By.XPath(urlFind)).GetAttribute("href");
