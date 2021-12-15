@@ -39,8 +39,7 @@ namespace SeleniumScraper {
 #if debugOptions
             chOptions.AddArgument("--disable-notifications");
 #else
-            chOptions.AddArguments("--headless --disable-notifications --silent");
-            chOptions.AddArgument("headless");
+            chOptions.AddArgument("--headless");
             chOptions.AddArgument("--disable-notifications");
             chOptions.AddArgument("--silent");
             chOptions.AddArgument("--log-level=3");
@@ -107,11 +106,13 @@ namespace SeleniumScraper {
                                         var vidViews = driver.FindElement(By.XPath(views)).Text;
 
                                         // Get channel
-                                        string channel = "/html/body/ytd-app/div/ytd-page-manager/ytd-search/div[1]/ytd-two-column-search-results-renderer/div/ytd-section-list-renderer/div[2]/ytd-item-section-renderer/div[3]/ytd-video-renderer[" + i + "]/div[1]/div/div[2]/ytd-channel-name/div/div/yt-formatted-string/a";
+                                        string channel = "/html/body/ytd-app/div/ytd-page-manager/ytd-search/div[1]/ytd-two-column-search-results-renderer/div/ytd-section-list-renderer/" +
+                                            "div[2]/ytd-item-section-renderer/div[3]/ytd-video-renderer[" + i + "]/div[1]/div/div[2]/ytd-channel-name/div/div/yt-formatted-string/a";
                                         var vidChannel = driver.FindElement(By.XPath(channel)).Text;
 
                                         // Get url
-                                        string url = "/html/body/ytd-app/div/ytd-page-manager/ytd-search/div[1]/ytd-two-column-search-results-renderer/div/ytd-section-list-renderer/div[2]/ytd-item-section-renderer/div[3]/ytd-video-renderer[" + i + "]/div[1]/ytd-thumbnail/a";
+                                        string url = "/html/body/ytd-app/div/ytd-page-manager/ytd-search/div[1]/ytd-two-column-search-results-renderer/div/ytd-section-list-renderer/" +
+                                            "div[2]/ytd-item-section-renderer/div[3]/ytd-video-renderer[" + i + "]/div[1]/ytd-thumbnail/a";
                                         var vidUrl = driver.FindElement(By.XPath(url));
                                         string hrefUrl = vidUrl.GetAttribute("href");
 
@@ -308,11 +309,9 @@ namespace SeleniumScraper {
                                     }
 
                                     i++;
-
-                                    // No results have been found, must be invalid link
-
                                 }
 
+                                // No results have been found, must be invalid link
                                 if (resultCount == 0) {
                                     outputString = "No results found for " + options[userIn] + " scrape with option: " + searchTermIn;
                                     noValidResults = true;
@@ -339,7 +338,7 @@ namespace SeleniumScraper {
                                 Console.Write("Do you want to save this data? y/n: ");
                                 validAnswer = false;
                             } else {
-                                // By setting valid answer to true, data saving will be skippeds
+                                // By setting valid answer to true, data saving will be skipped
                                 validAnswer = true;
                                 Console.Clear();
                             }
