@@ -102,22 +102,22 @@ namespace SeleniumScraper {
                                     try {
                                         // Get title
                                         string title = "(//*[@id='video-title']/yt-formatted-string)[" + i + "]";
-                                        var videotitle = driver.FindElement(By.XPath(title)).Text;
+                                        var videotitle = driver.FindElement(By.XPath(title)).Text.Trim();
 
                                         // Get views
                                         string views = "(//*[@id=\"metadata-line\"]/span[1])[" + i + "]";
-                                        var vidViews = driver.FindElement(By.XPath(views)).Text;
+                                        var vidViews = driver.FindElement(By.XPath(views)).Text.Trim();
 
                                         // Get channel
                                         string channel = "/html/body/ytd-app/div/ytd-page-manager/ytd-search/div[1]/ytd-two-column-search-results-renderer/div/ytd-section-list-renderer/" +
                                             "div[2]/ytd-item-section-renderer/div[3]/ytd-video-renderer[" + i + "]/div[1]/div/div[2]/ytd-channel-name/div/div/yt-formatted-string/a";
-                                        var vidChannel = driver.FindElement(By.XPath(channel)).Text;
+                                        var vidChannel = driver.FindElement(By.XPath(channel)).Text.Trim();
 
                                         // Get url
                                         string url = "/html/body/ytd-app/div/ytd-page-manager/ytd-search/div[1]/ytd-two-column-search-results-renderer/div/ytd-section-list-renderer/" +
                                             "div[2]/ytd-item-section-renderer/div[3]/ytd-video-renderer[" + i + "]/div[1]/ytd-thumbnail/a";
                                         var vidUrl = driver.FindElement(By.XPath(url));
-                                        string hrefUrl = vidUrl.GetAttribute("href");
+                                        string hrefUrl = vidUrl.GetAttribute("href").Trim();
 
                                         // Output for console window
                                         outputString += videotitle + '\n' + vidViews + '\n' + vidChannel + '\n' + hrefUrl;
@@ -158,20 +158,22 @@ namespace SeleniumScraper {
                                     try {
                                         // Get title
                                         string titleFind = "//*[@id=\"mosaic-provider-jobcards\"]/a[" + i + "]/div[1]/div/div[1]/div/table[1]/tbody/tr/td/div[1]/h2/span";
-                                        var title = driver.FindElement(By.XPath(titleFind)).Text;
+                                        var title = driver.FindElement(By.XPath(titleFind)).Text.Trim();
 
                                         string companyFind = "//*[@id=\"mosaic-provider-jobcards\"]/a[" + i + "]/div[1]/div/div[1]/div/table[1]/tbody/tr/td/div[2]/pre/span";
-                                        var companyName = driver.FindElement(By.XPath(companyFind)).Text;
+                                        var companyName = driver.FindElement(By.XPath(companyFind)).Text.Trim();
 
                                         string locationFind = "//*[@id=\"mosaic-provider-jobcards\"]/a[" + i + "]/div[1]/div/div[1]/div/table[1]/tbody/tr/td/div[2]/pre/div";
                                         var location = driver.FindElement(By.XPath(locationFind)).GetAttribute("innerHTML");
 
                                         if (location.IndexOf('<') != -1) {
-                                            location = location.Substring(0, location.IndexOf('<'));
+                                            location = location.Substring(0, location.IndexOf('<') -1);
                                         }
 
+                                        location = location.Trim();
+
                                         string urlFind = "//*[@id=\"mosaic-provider-jobcards\"]/a[" + i + "]";
-                                        var url = driver.FindElement(By.XPath(urlFind)).GetAttribute("href");
+                                        var url = driver.FindElement(By.XPath(urlFind)).GetAttribute("href").Trim();
 
                                         // Output for console window
                                         outputString += title + '\n' + companyName + '\n' + location + '\n' + url;
@@ -244,7 +246,7 @@ namespace SeleniumScraper {
                                             // Get date, this is consistent
                                             try {
                                                 dateFind = "//*[@id=\"" + id + "\"]/div[3]/div[1]/div/div[1]/a";
-                                                dateResult = driver.FindElement(By.XPath(dateFind)).Text;
+                                                dateResult = driver.FindElement(By.XPath(dateFind)).Text.Trim();
                                             } catch {
                                                 //Console.WriteLine("Date Fetch Failed");
                                             }
@@ -253,7 +255,7 @@ namespace SeleniumScraper {
                                             // Get upvotes
                                             try {
                                                 upvoteFind = "//*[@id=\"vote-arrows-" + id + "\"]/div";
-                                                upvoteResult = driver.FindElement(By.XPath(upvoteFind)).Text;
+                                                upvoteResult = driver.FindElement(By.XPath(upvoteFind)).Text.Trim();
                                             } catch {
                                                 // Invalid
                                                 //Console.WriteLine("Upvote Fetch Failed");
@@ -262,7 +264,7 @@ namespace SeleniumScraper {
                                             // URL are also consistent and also use the post ID
                                             try {
                                                 urlFind = "//*[@id=\"" + id + "\"]/div[3]/div[1]/div/div[1]/a";
-                                                urlResult = driver.FindElement(By.XPath(urlFind)).GetAttribute("href");
+                                                urlResult = driver.FindElement(By.XPath(urlFind)).GetAttribute("href").Trim();
                                             } catch {
                                                 // Invalid
                                                 //Console.WriteLine("URL FECTH FAILED");
@@ -270,19 +272,19 @@ namespace SeleniumScraper {
 
                                             try {
                                                 titleFind = "//*[@id=\"" + id + "\"]/div[3]/div[2]/div[2]/a/div/h3";
-                                                titleResult = driver.FindElement(By.XPath(titleFind)).Text;
+                                                titleResult = driver.FindElement(By.XPath(titleFind)).Text.Trim();
 
                                                 //Console.WriteLine("First Post structure");
                                             } catch {
                                                 try {
                                                     titleFind = "//*[@id=\"" + id + "\"]/div[2]/article/div[1]/div[2]/div[2]/a/div/h3";
-                                                    titleResult = driver.FindElement(By.XPath(titleFind)).Text;
+                                                    titleResult = driver.FindElement(By.XPath(titleFind)).Text.Trim();
 
                                                     //Console.WriteLine("Second Post structure");
                                                 } catch {
                                                     try {
                                                         titleFind = "//*[@id=\"" + id + "\"]/div[3]/div[2]/div[1]/a/div/h3";
-                                                        titleResult = driver.FindElement(By.XPath(titleFind)).Text;
+                                                        titleResult = driver.FindElement(By.XPath(titleFind)).Text.Trim();
 
                                                         //Console.WriteLine("Third Post structure");
                                                     } catch {
