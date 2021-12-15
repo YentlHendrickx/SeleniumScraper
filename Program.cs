@@ -79,6 +79,8 @@ namespace SeleniumScraper {
                             } else if (options[userIn] == "Reddit") {
                                 // For reddit we want the top posts of the past month
                                 lookupUrl += "/top/?t=month";
+                            } else if (options[userIn] == "YouTube") {
+                                lookupUrl += "&sp=CAI%253D";
                             }
                             Console.WriteLine(lookupUrl);
                             // Go to url
@@ -94,8 +96,9 @@ namespace SeleniumScraper {
                             if (options[userIn] == "YouTube") {
                                 // For checking the amount of valid results
                                 int youtubeResults = 0;
+                                int i = 1;
                                 // Loop over first 5 vids
-                                for (int i = 1; i < 6; i++) {
+                                while (youtubeResults < 5 && i < 10) {
                                     try {
                                         // Get title
                                         string title = "(//*[@id='video-title']/yt-formatted-string)[" + i + "]";
@@ -141,6 +144,7 @@ namespace SeleniumScraper {
                                         outputString = "No results found for " + options[userIn] + " scrape with option: " + searchTermIn;
                                         noValidResults = true;
                                     }
+                                    i++;
                                 }
 
                                 #endregion
