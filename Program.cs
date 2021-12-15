@@ -248,7 +248,9 @@ namespace SeleniumScraper {
                                                 dateFind = "//*[@id=\"" + id + "\"]/div[3]/div[1]/div/div[1]/a";
                                                 dateResult = driver.FindElement(By.XPath(dateFind)).Text.Trim();
                                             } catch {
-                                                //Console.WriteLine("Date Fetch Failed");
+#if debug
+                                                Console.WriteLine("Date Fetch Failed");
+#endif
                                             }
 
                                             // Upvotes are also consistent and use the post ID in their own ID
@@ -258,7 +260,9 @@ namespace SeleniumScraper {
                                                 upvoteResult = driver.FindElement(By.XPath(upvoteFind)).Text.Trim();
                                             } catch {
                                                 // Invalid
-                                                //Console.WriteLine("Upvote Fetch Failed");
+#if debug
+                                                Console.WriteLine("Upvote Fetch Failed");
+#endif
                                             }
 
                                             // URL are also consistent and also use the post ID
@@ -267,14 +271,18 @@ namespace SeleniumScraper {
                                                 urlResult = driver.FindElement(By.XPath(urlFind)).GetAttribute("href").Trim();
                                             } catch {
                                                 // Invalid
-                                                //Console.WriteLine("URL FECTH FAILED");
+#if debug
+                                                Console.WriteLine("URL FECTH FAILED");
+#endif
                                             }
 
                                             try {
                                                 titleFind = "//*[@id=\"" + id + "\"]/div[3]/div[2]/div[2]/a/div/h3";
                                                 titleResult = driver.FindElement(By.XPath(titleFind)).Text.Trim();
 
-                                                //Console.WriteLine("First Post structure");
+#if debug
+                                                Console.WriteLine("First Post structure");
+#endif
                                             } catch {
                                                 try {
                                                     titleFind = "//*[@id=\"" + id + "\"]/div[2]/article/div[1]/div[2]/div[2]/a/div/h3";
@@ -330,8 +338,8 @@ namespace SeleniumScraper {
                                 }
 
                             }
-                            #endregion
-                            #endregion
+#endregion
+#endregion
 
                             Console.WriteLine(outputString);
 
@@ -340,7 +348,7 @@ namespace SeleniumScraper {
                             Console.ReadKey();
                             Console.WriteLine("");
 
-                            #region SaveAsSVC
+#region SaveAsSVC
 
                             bool validAnswer = true;
 #if !debug
@@ -395,7 +403,7 @@ namespace SeleniumScraper {
                                     Console.Write("Do you want to save this data? y/n: ");
                                 }
                             }
-                            #endregion
+#endregion
                         } else {
                             // Invalid input
                             Console.WriteLine("");
