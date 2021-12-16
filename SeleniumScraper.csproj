@@ -72,7 +72,7 @@
     <Content Include="bin\Debug\SeleniumScraper.exe" />
     <Content Include="bin\Debug\SeleniumScraper.pdb" />
     <Content Include="chromedriver.exe">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="WebDriver.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
