@@ -70,10 +70,14 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="bin\Debug\SeleniumScraper.exe" />
-    <Content Include="bin\Debug\SeleniumScraper.pdb" />
-    <EmbeddedResource Include="chromedriver.exe" />
-    <EmbeddedResource Include="WebDriver.dll" />
+    <Content Include="bin\Debug\SeleniumScraper.pdb" />  
   </ItemGroup>
+   <Target Name="EmbedLocal" BeforeTargets="PrepareForBuild">
+	<ItemGroup>
+	  <EmbeddedResource Include="chromedriver.exe" />
+	  <EmbeddedResource Include="WebDriver.dll" />
+    </ItemGroup>
+	</Target>
   <ItemGroup>
     <Folder Include="bin\Release\" />
   </ItemGroup>
