@@ -29,6 +29,13 @@ jobs:
 
     - name: Install dependencies
       run: dotnet restore
+
+    - name: Setup MSBuild.exe
+      uses: warrenbuckley/Setup-MSBuild@v1
+
+    - name: MSBuild
+      working-directory: src
+      run: msbuild MyProject.csproj
     - name: Build
       run: MSBuild.exe --configuration Release --no-restore
     - name: Test
