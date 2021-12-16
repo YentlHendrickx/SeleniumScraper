@@ -71,9 +71,12 @@
   <ItemGroup>
     <Content Include="bin\Debug\SeleniumScraper.exe" />
     <Content Include="bin\Debug\SeleniumScraper.pdb" />
-    <Content Include="chromedriver.exe">
+    <EmbeddedResource Include="chromedriver.exe">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
+    </EmbeddedResource>
+    <EmbeddedResource Include="WebDriver.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="bin\Release\" />
