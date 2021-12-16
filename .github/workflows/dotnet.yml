@@ -31,11 +31,11 @@ jobs:
       run: dotnet restore
 
     - name: Setup MSBuild.exe
-      uses: warrenbuckley/Setup-MSBuild@v1
+      uses: microsoft/setup-msbuild@v1.1
 
     - name: MSBuild
       working-directory: src
-      run: msbuild MyProject.csproj
+      run: msbuild SeleniumScraper.csproj
     - name: Build
       run: MSBuild.exe --configuration Release --no-restore
     - name: Test
