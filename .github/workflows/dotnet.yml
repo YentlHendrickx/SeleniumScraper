@@ -35,7 +35,7 @@ jobs:
 
     - name: MSBuild
       working-directory: src
-      run: msbuild ./SeleniumScraper.csproj
+      run: msbuild ./
     - name: Build
       run: MSBuild.exe --configuration Release --no-restore
     - name: Test
