@@ -19,8 +19,8 @@ jobs:
       uses: microsoft/setup-msbuild@v1.1
 
     - name: MSBuild
-      working-directory: src
-      run: msbuild .\SeleniumScraper.csproj
+      working-directory: .
+      run: msbuild SeleniumScraper.csproj
 
     - name: Publish
       run: dotnet publish -r win-x64 -c Release /p:PublishSingleFile=true
