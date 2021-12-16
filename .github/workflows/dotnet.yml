@@ -11,8 +11,10 @@ jobs:
         os: [windows-latest]
 
     steps:
-    - name: Setup MSBuild Path
-      uses: warrenbuckley/Setup-MSBuild@v1
+    - name: Add msbuild to PATH
+      uses: microsoft/setup-msbuild@v1.1
+    - name: Build app for release
+      run: msbuild src\YourProjectFile.csproj -t:rebuild -verbosity:diag -property:Configuration=Release
 
     - name: Install dependencies
       run: dotnet restore
