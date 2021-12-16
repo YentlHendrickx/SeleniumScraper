@@ -26,4 +26,4 @@ jobs:
       uses: actions/upload-artifact@v2.2.4
       with:
           name: Scraper
-          path: D:\a\SeleniumScraper\SeleniumScraper\bin\Release\SeleniumScraper.exe
+          path: D:\a\SeleniumScraper\SeleniumScraper\bin\Release\
