@@ -1,7 +1,7 @@
 name: Build And Artifact
 on: [push, pull_request, workflow_dispatch]
 env:
-  DOTNET_VERSION: '5.0.13' # The .NET SDK version to use
+  DOTNET_VERSION: '6.0' # The .NET SDK version to use
 
 jobs:
   build-and-test:
