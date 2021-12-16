@@ -20,10 +20,7 @@ jobs:
 
     - name: MSBuild
       working-directory: .
-      run: msbuild SeleniumScraper.csproj
-
-    - name: Publish
-      run: dotnet publish -r win-x64 -c Release /p:PublishSingleFile=true
+      run: msbuild SeleniumScraper.csproj -c release /p:PublishSingleFile=true
       
     - name: Upload Artifacts
       uses: actions/upload-artifact@v2.2.4
