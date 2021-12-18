@@ -4,4 +4,4 @@ A Selenium based web srcaper using C#.NET, created for the DevOps course at Thom
 
 ## Installation
 
-Download the zip artifact file from actions, extract and run the SeleniumScraper.exe file
+Download the zip artifact file from actions, extract and run the SeleniumScraper.exe file.
