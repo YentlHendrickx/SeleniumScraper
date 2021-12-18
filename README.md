@@ -1,6 +1,6 @@
 # C#.NET Selenium Scraper
 
-A Selenium based web srcaper using C#.NET, created for the DevOps course at Thomas More Geel
+A Selenium based web srcaper using C#.NET, created for the DevOps course at Thomas More Geel.
 
 ## Installation
 
